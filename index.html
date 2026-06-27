@@ -1,15 +1,729 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uz">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AvtoTest — Uzbekistan Driving Theory App</title>
+    <title>AvtoTest — Yo'l harakati imtihoniga tayyorlan</title>
+    <meta name="description" content="AvtoTest — O'zbekistonda haydovchilik imtihoniga tayyorlanish uchun eng yaxshi ilova. Rasmiy savollar, 80% o'tish darajasi.">
+    <meta name="keywords" content="avtotest, yo'l harakati imtihon, haydovchilik imtihon savollari, автотест узбекистан, avtotest 2026, yo'l harakati qoidalari test">
+    <meta property="og:title" content="AvtoTest — Yo'l harakati imtihoniga tayyorlan">
+    <meta property="og:description" content="Rasmiy savollar bilan imtihonga tayyorlan. Foydalanuvchilarning 80% dan ortig'i birinchi urinishda o'tadi.">
+    <meta property="og:type" content="website">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --green: #1DB954;
+            --green-dark: #17a349;
+            --green-pale: #e8f9ee;
+            --night: #0d1117;
+            --ink: #1a1f2e;
+            --mid: #4a5568;
+            --soft: #8892a4;
+            --line: #e8ecf2;
+            --white: #ffffff;
+            --road: #2d3748;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--white);
+            color: var(--ink);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--line);
+            padding: 0 24px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-weight: 800;
+            font-size: 18px;
+            color: var(--ink);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-logo span {
+            color: var(--green);
+        }
+
+        .nav-badge {
+            background: var(--green-pale);
+            color: var(--green-dark);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+        }
+
+        .nav-cta {
+            background: var(--green);
+            color: white;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .nav-cta:hover { background: var(--green-dark); }
+
+        /* HERO */
+        .hero {
+            padding: 120px 24px 80px;
+            max-width: 960px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--green-pale);
+            color: var(--green-dark);
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-eyebrow::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--green);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.3); }
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 7vw, 72px);
+            font-weight: 900;
+            line-height: 1.08;
+            letter-spacing: -0.03em;
+            color: var(--night);
+            margin-bottom: 20px;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--green);
+        }
+
+        .hero-sub {
+            font-size: clamp(16px, 2.5vw, 20px);
+            color: var(--mid);
+            max-width: 540px;
+            margin: 0 auto 36px;
+            line-height: 1.6;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 56px;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--green);
+            color: white;
+            text-decoration: none;
+            padding: 16px 28px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 20px rgba(29, 185, 84, 0.35);
+        }
+
+        .btn-primary:hover {
+            background: var(--green-dark);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 24px rgba(29, 185, 84, 0.45);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--white);
+            color: var(--ink);
+            text-decoration: none;
+            padding: 16px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 16px;
+            border: 1.5px solid var(--line);
+            transition: all 0.2s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--green);
+            color: var(--green);
+        }
+
+        /* STATS ROAD */
+        .stats-road {
+            background: var(--road);
+            padding: 40px 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-road::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0; right: 0;
+            height: 3px;
+            background: repeating-linear-gradient(
+                90deg,
+                #f5c842 0px, #f5c842 40px,
+                transparent 40px, transparent 70px
+            );
+            transform: translateY(-50%);
+            opacity: 0.6;
+        }
+
+        .stats-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-item {
+            text-align: center;
+            color: white;
+        }
+
+        .stat-number {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 900;
+            color: var(--green);
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: rgba(255,255,255,0.65);
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        .stat-divider {
+            width: 1px;
+            height: 48px;
+            background: rgba(255,255,255,0.15);
+        }
+
+        /* SECTION */
+        section {
+            padding: 80px 24px;
+        }
+
+        .section-inner {
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--green);
+            margin-bottom: 12px;
+        }
+
+        .section-title {
+            font-size: clamp(26px, 4vw, 40px);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--night);
+            line-height: 1.2;
+            margin-bottom: 16px;
+        }
+
+        .section-sub {
+            font-size: 17px;
+            color: var(--mid);
+            max-width: 520px;
+            line-height: 1.65;
+        }
+
+        /* FEATURES */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 48px;
+        }
+
+        .feature-card {
+            background: var(--white);
+            border: 1.5px solid var(--line);
+            border-radius: 16px;
+            padding: 28px;
+            transition: all 0.2s;
+        }
+
+        .feature-card:hover {
+            border-color: var(--green);
+            box-shadow: 0 4px 20px rgba(29, 185, 84, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--green-pale);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 16px;
+        }
+
+        .feature-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--night);
+            margin-bottom: 8px;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            color: var(--mid);
+            line-height: 1.6;
+        }
+
+        /* LANGUAGES */
+        .lang-section {
+            background: var(--night);
+            color: white;
+        }
+
+        .lang-section .section-title { color: white; }
+        .lang-section .section-sub { color: rgba(255,255,255,0.6); }
+
+        .lang-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 48px;
+        }
+
+        .lang-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .lang-flag { font-size: 28px; }
+
+        .lang-name {
+            font-weight: 600;
+            font-size: 15px;
+            color: white;
+        }
+
+        .lang-script {
+            font-size: 12px;
+            color: rgba(255,255,255,0.45);
+            margin-top: 2px;
+        }
+
+        /* TESTIMONIALS */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            margin-top: 48px;
+        }
+
+        .testimonial-card {
+            background: var(--green-pale);
+            border-radius: 16px;
+            padding: 24px;
+        }
+
+        .testimonial-stars {
+            color: #f5c842;
+            font-size: 16px;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-text {
+            font-size: 15px;
+            color: var(--ink);
+            line-height: 1.65;
+            margin-bottom: 16px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--night);
+        }
+
+        .testimonial-meta {
+            font-size: 13px;
+            color: var(--mid);
+        }
+
+        /* CTA SECTION */
+        .cta-section {
+            background: linear-gradient(135deg, #0d1117 0%, #1a2332 100%);
+            text-align: center;
+        }
+
+        .cta-section .section-title { color: white; }
+
+        .cta-sub {
+            font-size: 18px;
+            color: rgba(255,255,255,0.6);
+            margin: 16px auto 40px;
+            max-width: 460px;
+        }
+
+        .cta-badges {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 32px;
+        }
+
+        .cta-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: rgba(255,255,255,0.5);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .cta-badge::before {
+            content: '✓';
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--night);
+            border-top: 1px solid rgba(255,255,255,0.08);
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .footer-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .footer-logo {
+            font-weight: 800;
+            font-size: 16px;
+            color: white;
+        }
+
+        .footer-logo span { color: var(--green); }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.45);
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: var(--green); }
+
+        .footer-copy {
+            color: rgba(255,255,255,0.3);
+            font-size: 13px;
+            width: 100%;
+            margin-top: 16px;
+            text-align: center;
+        }
+
+        /* PLAY STORE BADGE */
+        .play-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--night);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: 1.5px solid rgba(255,255,255,0.15);
+            transition: all 0.2s;
+        }
+
+        .play-badge:hover {
+            border-color: var(--green);
+            transform: translateY(-1px);
+        }
+
+        .play-badge-text-small { font-size: 11px; color: rgba(255,255,255,0.6); }
+        .play-badge-text-large { font-size: 15px; font-weight: 700; }
+
+        @media (max-width: 600px) {
+            .stat-divider { display: none; }
+            .footer-inner { justify-content: center; text-align: center; }
+            .footer-links { justify-content: center; }
+            nav .nav-badge { display: none; }
+        }
+    </style>
 </head>
 <body>
-    <h1>AvtoTest</h1>
-    <p>Driving theory test app for Uzbekistan.</p>
-    <a href="https://play.google.com/store/apps/details?id=uz.avto.test">
-        Download on Google Play
-    </a>
+
+<!-- NAV -->
+<nav>
+    <a href="#" class="nav-logo">Avto<span>Test</span></a>
+    <span class="nav-badge">⭐ 4.9 rating</span>
+    <a href="https://play.google.com/store/apps/details?id=uz.avto.test" class="nav-cta">Yuklab olish</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-eyebrow">O'zbekiston №1 avtotest ilovasi</div>
+    <h1>Imtihondan<br><em>birinchi urinishda</em><br>o'ting</h1>
+    <p class="hero-sub">
+        Foydalanuvchilarning <strong>80% dan ortig'i</strong> AvtoTest bilan tayyorlanib, yo'l harakati imtihonini birinchi urinishda topshiradi.
+    </p>
+    <div class="hero-cta-group">
+        <a href="https://play.google.com/store/apps/details?id=uz.avto.test" class="btn-primary">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M3.18 23.76c.3.17.64.24.99.2l12.6-11.96-3.4-3.4L3.18 23.76zM20.7 9.5l-2.86-1.66-3.84 3.66 3.84 3.66 2.9-1.68c.83-.48.83-1.5-.04-1.98zM3.15.25C2.82.43 2.6.79 2.6 1.26v21.5c0 .47.22.83.55 1.01l12.7-11.76L3.15.25zM13.91 12L3.18.24c-.01 0-.02.01-.03.01L13.91 12z"/></svg>
+            Google Play'dan yuklab olish
+        </a>
+        <a href="#features" class="btn-secondary">
+            Imkoniyatlarni ko'rish →
+        </a>
+    </div>
+</section>
+
+<!-- STATS ROAD -->
+<div class="stats-road">
+    <div class="stats-inner">
+        <div class="stat-item">
+            <div class="stat-number">80%+</div>
+            <div class="stat-label">Birinchi urinishda o'tish</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <div class="stat-number">4,600+</div>
+            <div class="stat-label">Faol foydalanuvchi</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <div class="stat-number">4.9 ⭐</div>
+            <div class="stat-label">Play Store reytingi</div>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+            <div class="stat-number">Bepul</div>
+            <div class="stat-label">Asosiy imkoniyatlar</div>
+        </div>
+    </div>
+</div>
+
+<!-- FEATURES -->
+<section id="features">
+    <div class="section-inner">
+        <div class="section-label">Imkoniyatlar</div>
+        <h2 class="section-title">Imtihonga to'liq tayyorlanish</h2>
+        <p class="section-sub">Rasmiy savol va javoblar, xatolarni tahlil qilish, va ko'proq — barchasi bir joyda.</p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📋</div>
+                <div class="feature-title">Rasmiy imtihon savollari</div>
+                <div class="feature-desc">O'zbekiston YHQXBdan tasdiqlangan haqiqiy imtihon savollari. Kutilmagan savollar bo'lmaydi.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🗂️</div>
+                <div class="feature-title">Mavzu bo'yicha mashq</div>
+                <div class="feature-desc">Yo'l belgilari, ustuvorlik qoidalari, tormozlash masofasi — har bir mavzuni alohida o'rganing.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">❌</div>
+                <div class="feature-title">Xatolarni kuzatish</div>
+                <div class="feature-desc">Qaysi savollarda xato qilganingizni ko'ring va faqat shu savollarni qayta mashq qiling.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <div class="feature-title">Imtihon simulyatsiyasi</div>
+                <div class="feature-desc">Haqiqiy imtihon sharoitida — 20 savol, 20 daqiqa, qat'iy o'tish mezoni bilan sinab ko'ring.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔖</div>
+                <div class="feature-title">Savollarni saqlash</div>
+                <div class="feature-desc">Qiyin savollarni belgilab qo'ying va keyinroq qaytib ko'ring.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <div class="feature-title">O'sishni kuzating</div>
+                <div class="feature-desc">Har bir mashqdan so'ng natijangiz qanday o'zgarayotganini grafik orqali ko'ring.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- LANGUAGES -->
+<section class="lang-section">
+    <div class="section-inner">
+        <div class="section-label" style="color: var(--green);">Til imkoniyatlari</div>
+        <h2 class="section-title">Qulay tilda o'rganing</h2>
+        <p class="section-sub" style="color: rgba(255,255,255,0.55);">O'zbek (lotin va kirill), rus va ingliz tillarida to'liq qo'llab-quvvatlanadi.</p>
+
+        <div class="lang-grid">
+            <div class="lang-card">
+                <div class="lang-flag">🇺🇿</div>
+                <div>
+                    <div class="lang-name">O'zbek (lotin)</div>
+                    <div class="lang-script">Yangi alifbo</div>
+                </div>
+            </div>
+            <div class="lang-card">
+                <div class="lang-flag">🇺🇿</div>
+                <div>
+                    <div class="lang-name">Ўзбек (кирилл)</div>
+                    <div class="lang-script">Эски алифбо</div>
+                </div>
+            </div>
+            <div class="lang-card">
+                <div class="lang-flag">🇷🇺</div>
+                <div>
+                    <div class="lang-name">Русский</div>
+                    <div class="lang-script">Russian</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section>
+    <div class="section-inner">
+        <div class="section-label">Foydalanuvchilar fikri</div>
+        <h2 class="section-title">Ular imtihondan o'tdi</h2>
+        <p class="section-sub">AvtoTest bilan tayyorlanib, haydovchilik guvohnomasini olganlar haqida.</p>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"Ikki hafta AvtoTest bilan tayyorlandim va birinchi urinishda o'tdim. Rasmiy savollar aynan shu yerda ekan!"</p>
+                <div class="testimonial-author">Sardor T.</div>
+                <div class="testimonial-meta">Toshkent · 2026</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"Xatolarim qayerda ekanini ko'rsatgani juda yaxshi. Yo'l belgilari bo'limida ko'p xato qilganman, shu yerdan boshladim."</p>
+                <div class="testimonial-author">Dilnoza M.</div>
+                <div class="testimonial-meta">Samarqand · 2026</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"Boshqa ilovalarni ham ko'rdim, lekin AvtoTest eng to'liq va qulay. Savol tushuntirishlari bilan birga berilgan."</p>
+                <div class="testimonial-author">Jasur K.</div>
+                <div class="testimonial-meta">Namangan · 2025</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+    <div class="section-inner">
+        <h2 class="section-title">Bugun tayyorlanishni boshlang</h2>
+        <p class="cta-sub">Bepul yuklab oling. Hech qanday ro'yxatdan o'tish talab etilmaydi.</p>
+
+        <a href="https://play.google.com/store/apps/details?id=uz.avto.test" class="btn-primary" style="font-size: 18px; padding: 18px 36px;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M3.18 23.76c.3.17.64.24.99.2l12.6-11.96-3.4-3.4L3.18 23.76zM20.7 9.5l-2.86-1.66-3.84 3.66 3.84 3.66 2.9-1.68c.83-.48.83-1.5-.04-1.98zM3.15.25C2.82.43 2.6.79 2.6 1.26v21.5c0 .47.22.83.55 1.01l12.7-11.76L3.15.25zM13.91 12L3.18.24c-.01 0-.02.01-.03.01L13.91 12z"/></svg>
+            Google Play'dan bepul yuklab olish
+        </a>
+
+        <div class="cta-badges">
+            <span class="cta-badge">Android 7.0 va undan yuqori</span>
+            <span class="cta-badge">Reklama bilan bepul</span>
+            <span class="cta-badge">Internetisiz ishlaydi</span>
+            <span class="cta-badge">4.9 ⭐ reyting</span>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-logo">Avto<span>Test</span></div>
+        <div class="footer-links">
+            <a href="https://ubozorboyev.github.io/privacy-policy">Maxfiylik siyosati</a>
+            <a href="mailto:contact@avtotest.uz">Bog'lanish</a>
+            <a href="https://play.google.com/store/apps/details?id=uz.avto.test">Play Store</a>
+        </div>
+        <div class="footer-copy">© 2026 AvtoTest. Barcha huquqlar himoyalangan.</div>
+    </div>
+</footer>
+
 </body>
 </html>
